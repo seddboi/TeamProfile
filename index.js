@@ -76,6 +76,7 @@ function establishCrew() {
             case 'No more Team Members needed':
                 console.log(moreMembers);
                 // Add function to generate HTML page
+                createCardHtml();
                 break; 
         };
     });
@@ -148,5 +149,48 @@ function establishIntern() {
         establishCrew();
     });
 }; 
+
+function createCardHtml() {
+    let html = '';
+    for (let x = 0; x < moreMembers; x++) {
+        console.log(moreMembers[x]);
+        
+        function determinePositionTitle(employee) {
+            if (moreMembers[x].includes('Manager')) {
+                return 'Manager';
+            } else if (moreMembers[x].includes('Engineer')) {
+                return 'Engineer';
+            } else {
+                return 'Intern';
+            }
+        };
+
+        function determineExtraInfo(employee) {
+            if (moreMembers[x].includes('Manager')) {
+                return `Office Number: ${employee.officeNumber}`;
+            } else if (moreMembers[x].includes('Engineer')) {
+                return `Github Username: ${employee.github}`;
+            } else {
+                return `School: ${employee.school}`;
+            }
+        };
+        
+        html += 
+        `
+        <div class= 'card bg-secondary justify-content-center align-items-center' style = 'width: 250px;'>
+            <div class= 'col card-header'>
+                <h3>${moreMembers[x].name}</h3>
+            </div>
+
+            <ul class= 'list-group list-group-flush text'>
+                <li class = 'list-group-item'>Title: ${determinePositionTitle(moreMembers[x])}</li>
+                <li class = 'list-group-item'>ID: ${moreMembers[x].title}</li>                
+                <li class = 'list-group-item'>Email: ${moreMembers[x].title}</li>
+                <li class = 'list-group-item'>${determineExtraInfo(moreMembers[x])}</li>            
+            </ul>
+        </div>
+        `
+    }
+};
 
 startMenu();
