@@ -1,3 +1,6 @@
+
+
+
 const fs = require('fs');
 const inquirer = require('inquirer');
 
@@ -155,20 +158,20 @@ function createCardHtml() {
     for (let x = 0; x < moreMembers; x++) {
         console.log(moreMembers[x]);
         
-        function determinePositionTitle(employee) {
-            if (moreMembers[x].includes('Manager')) {
-                return 'Manager';
-            } else if (moreMembers[x].includes('Engineer')) {
-                return 'Engineer';
-            } else {
-                return 'Intern';
-            }
-        };
+        // function determinePositionTitle(employee) {
+        //     if (moreMembers[x].includes('Manager')) {
+        //         return 'Manager';
+        //     } else if (moreMembers[x].includes('Engineer')) {
+        //         return 'Engineer';
+        //     } else {
+        //         return 'Intern';
+        //     }
+        // };
 
         function determineExtraInfo(employee) {
-            if (moreMembers[x].includes('Manager')) {
+            if (moreMembers[x].constructor.name == 'Manager') {
                 return `Office Number: ${employee.officeNumber}`;
-            } else if (moreMembers[x].includes('Engineer')) {
+            } else if (moreMembers[x].constructor.name == 'Engineer') {
                 return `Github Username: ${employee.github}`;
             } else {
                 return `School: ${employee.school}`;
@@ -183,14 +186,42 @@ function createCardHtml() {
             </div>
 
             <ul class= 'list-group list-group-flush text'>
-                <li class = 'list-group-item'>Title: ${determinePositionTitle(moreMembers[x])}</li>
+                <li class = 'list-group-item'>Title: ${moreMembers[x].constructor.name}</li>
                 <li class = 'list-group-item'>ID: ${moreMembers[x].title}</li>                
                 <li class = 'list-group-item'>Email: ${moreMembers[x].title}</li>
                 <li class = 'list-group-item'>${determineExtraInfo(moreMembers[x])}</li>            
             </ul>
         </div>
         `
-    }
+    };
+    return html;
 };
+
+let htmlCreate = 
+`
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <title>Team Profile</title>
+  </head>
+
+  <body>
+    <div>
+        <h1 style='background-color: darkred; color: #ffffff; padding:15px; text-align: center;'>Team Profile</h1>
+    </div>
+    <div class='container' id='new-entries'>
+        ${createCardHtml()}
+    </div>
+    
+    <script src="index.js"></script>
+  </body>
+</html> 
+`;
 
 startMenu();
