@@ -213,7 +213,7 @@ function createTheHtml() {
                 <h1 style='background-color: darkred; color: #ffffff; padding:15px; text-align: center;'>Team Profile</h1>
             </div>
             <div class='container' id='new-entries'>
-                ${createCardHtml()}
+                ${createCard()}
             </div>
     
             <script src="index.js"></script>
