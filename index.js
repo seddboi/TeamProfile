@@ -158,8 +158,7 @@ function establishIntern() {
 
 function createCard() {
     let html = '';
-    for (let x = 0; x < moreMembers; x++) {
-        console.log(moreMembers[x]);
+    for (let x = 0; x < moreMembers.length; x++) {
         
         // function determinePositionTitle(employee) {
         //     if (moreMembers[x].includes('Manager')) {
@@ -173,14 +172,14 @@ function createCard() {
 
         html += 
         `
-        <div class= 'card bg-secondary justify-content-center align-items-center' style = 'width: 250px;'>
-            <div class= 'col card-header'>
+        <div class= 'card' style = 'width: 250px;'>
+            <div class= 'col name card-header bg-secondary'>
                 <h3>${moreMembers[x].name}</h3>
             </div>
             <ul class= 'list-group list-group-flush text'>
-                <li class = 'list-group-item'>Title: ${moreMembers[x].constructor.name}</li>
-                <li class = 'list-group-item'>ID: ${moreMembers[x].title}</li>                
-                <li class = 'list-group-item'>Email: ${moreMembers[x].title}</li>
+                <li class = 'list-group-item'>Title: <strong>${moreMembers[x].constructor.name}</strong></li>
+                <li class = 'list-group-item'>ID: ${moreMembers[x].id}</li>                
+                <li class = 'list-group-item'>Email: ${moreMembers[x].email}</li>
                 <li class = 'list-group-item'>${determineExtraInfo(moreMembers[x])}</li>            
             </ul>
         </div>
@@ -196,7 +195,7 @@ function createCard() {
                 return `School: ${employee.school}`;
             }
         };
-        return html;  
+        //return html;  
     };
     return html;
 };
@@ -204,6 +203,7 @@ function createCard() {
 // This function is meant to compile the user generated profile sections 
 // and the base html page info to make the overall page
 function createTheHtml() {
+    let temp = createCard();
     let htmlCreate = 
     `
     <!DOCTYPE html>
@@ -220,9 +220,39 @@ function createTheHtml() {
                 <h1 style='background-color: darkred; color: #ffffff; padding:15px; text-align: center;'>Team Profile</h1>
             </div>
             <div class='container' id='new-entries'>
-                ${createCard()}
+                ${temp}  
             </div>
     
+            <style>
+                #new-entries {
+                    display:flex;
+                    justify-content: center;
+                }
+
+                .row {
+                    display: flex;
+                    justify-content: center;
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                }
+
+                .card {
+                    margin: 15px;
+                    border: solid 2px #000;
+                    border-radius: 10px;
+                    padding: 15px;
+                }
+
+                .text {
+                    margin: 10px;
+                    text-align: left;
+                }
+
+                .name {
+                    text-align: center;
+                }
+            </style>
+
             <script src="index.js"></script>
         </body>
         </html> 
