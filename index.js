@@ -11,10 +11,12 @@ const Intern = require('./lib/Intern');
 
 const moreMembers = [];
 
+// This function calls the main starter function createManager which starts the program
 function startMenu() {
     createManager();
 }
 
+// this starts the inquirer and establishes your manager
 function createManager() {
     console.log('Please build your team profile.');
     inquirer.prompt ([
@@ -32,6 +34,7 @@ function createManager() {
             name: 'mEmail',
             type: 'input',
             message: "What is the Manager's email?",
+            // this 
             validate: answer => {
                 // Credit for email validation: https://gist.github.com/Amitabh-K/ae073eea3d5207efaddffde19b1618e8 
                 valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(answer);
@@ -76,10 +79,10 @@ function establishCrew() {
             case 'Intern':
                 establishIntern();
                 break;
-            case 'No more Team Members needed':
+            case 'No more Team Members Needed':
                 console.log(moreMembers);
                 // Add function to generate HTML page
-                createCard();
+                createTheHtml();
                 break; 
         };
     });
@@ -168,16 +171,6 @@ function createCard() {
         //     }
         // };
 
-        function determineExtraInfo(employee) {
-            if (moreMembers[x].constructor.name == 'Manager') {
-                return `Office Number: ${employee.officeNumber}`;
-            } else if (moreMembers[x].constructor.name == 'Engineer') {
-                return `Github Username: ${employee.github}`;
-            } else {
-                return `School: ${employee.school}`;
-            }
-        };
-        
         html += 
         `
         <div class= 'card bg-secondary justify-content-center align-items-center' style = 'width: 250px;'>
@@ -191,11 +184,25 @@ function createCard() {
                 <li class = 'list-group-item'>${determineExtraInfo(moreMembers[x])}</li>            
             </ul>
         </div>
+
         `
+        
+        function determineExtraInfo(employee) {
+            if (employee.constructor.name == 'Manager') {
+                return `Office Number: ${employee.officeNumber}`;
+            } else if (employee.constructor.name == 'Engineer') {
+                return `Github Username: ${employee.github}`;
+            } else {
+                return `School: ${employee.school}`;
+            }
+        };
+        return html;  
     };
     return html;
 };
 
+// This function is meant to compile the user generated profile sections 
+// and the base html page info to make the overall page
 function createTheHtml() {
     let htmlCreate = 
     `
@@ -221,14 +228,11 @@ function createTheHtml() {
         </html> 
     `;
 
-    fs.writeFile('newIndex.html', html, function (err) {
+    fs.writeFile('newIndex.html', htmlCreate, function (err) {
         if (err) throw err;
         console.log('The file has been created successfully.');
     });
 }
 
-
-
-
-
+// This is just the initialization function that starts the program
 startMenu();
