@@ -79,7 +79,7 @@ function establishCrew() {
             case 'No more Team Members needed':
                 console.log(moreMembers);
                 // Add function to generate HTML page
-                createCardHtml();
+                createCard();
                 break; 
         };
     });
@@ -153,7 +153,7 @@ function establishIntern() {
     });
 }; 
 
-function createCardHtml() {
+function createCard() {
     let html = '';
     for (let x = 0; x < moreMembers; x++) {
         console.log(moreMembers[x]);
@@ -184,7 +184,6 @@ function createCardHtml() {
             <div class= 'col card-header'>
                 <h3>${moreMembers[x].name}</h3>
             </div>
-
             <ul class= 'list-group list-group-flush text'>
                 <li class = 'list-group-item'>Title: ${moreMembers[x].constructor.name}</li>
                 <li class = 'list-group-item'>ID: ${moreMembers[x].title}</li>                
@@ -197,31 +196,39 @@ function createCardHtml() {
     return html;
 };
 
-let htmlCreate = 
-`
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-    <title>Team Profile</title>
-  </head>
-
-  <body>
-    <div>
-        <h1 style='background-color: darkred; color: #ffffff; padding:15px; text-align: center;'>Team Profile</h1>
-    </div>
-    <div class='container' id='new-entries'>
-        ${createCardHtml()}
-    </div>
+function createTheHtml() {
+    let htmlCreate = 
+    `
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+            <title>Team Profile</title>
+        </head>
+        <body>
+            <div>
+                <h1 style='background-color: darkred; color: #ffffff; padding:15px; text-align: center;'>Team Profile</h1>
+            </div>
+            <div class='container' id='new-entries'>
+                ${createCardHtml()}
+            </div>
     
-    <script src="index.js"></script>
-  </body>
-</html> 
-`;
+            <script src="index.js"></script>
+        </body>
+        </html> 
+    `;
+
+    fs.writeFile('newIndex.html', html, function (err) {
+        if (err) throw err;
+        console.log('The file has been created successfully.');
+    });
+}
+
+
+
+
 
 startMenu();
